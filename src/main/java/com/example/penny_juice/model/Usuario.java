@@ -15,21 +15,21 @@ import jakarta.persistence.Table;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdUsuario")
+    @Column(name = "idUsuario")
     private Long idUsuario;
-    @Column(name = "Nombres", nullable = false, length = 100)
+    @Column(name = "nombres", nullable = false, length = 100)
     private String nombres;
-    @Column(name = "Apellidos", nullable = false, length = 100)
+    @Column(name = "apellidos", nullable = false, length = 100)
     private String apellidos;
-    @Column(name = "FechaNacimiento", nullable = false)
+    @Column(name = "fechaNacimiento", nullable = false)
     private LocalDate fechaNacimiento;
-    @Column(name = "Telefono", nullable = false, length = 15)
+    @Column(name = "telefono", nullable = false, length = 15)
     private String telefono;
-    @Column(name = "Correo", nullable = false, unique = true, length = 100)
+    @Column(name = "correo", nullable = false, unique = true, length = 100)
     private String correo;
-    @Column(name = "ContrasenaHash", nullable = false, length = 255)
+    @Column(name = "contrasenaHash", nullable = false, length = 255)
     private String contrasenaHash;
-    @Column(name = "FechaRegistro", nullable = false)
+    @Column(name = "fechaRegistro", nullable = false)
     private LocalDateTime fechaRegistro = LocalDateTime.now();
     //CONSTRUCTOR
     public Usuario() {}
