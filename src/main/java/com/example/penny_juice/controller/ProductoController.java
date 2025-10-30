@@ -1,58 +1,58 @@
 package com.example.penny_juice.controller;
 
-import com.example.penny_juice.model.Producto;
-import com.example.penny_juice.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.penny_juice.model.Producto;
+import com.example.penny_juice.service.ProductoService;
 
 @Controller
-@RequestMapping("productos")
+@RequestMapping("/productos")
+
 public class ProductoController {
-
-    private final ProductoService productoService;
-
     @Autowired
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
-    }
+
+    private ProductoService productoService;
 
     @GetMapping
-    public String listarProductos(Model model) {
-        model.addAttribute("productos", productoService.listarProducto());
-        return "productos";
-    }
 
+    public String listarProductos(Model model) {
+        model.addAttribute("listaProductos", productoService.listar());
+        return "lista";
+    }
 
     @GetMapping("/nuevo")
-    public String crearProducto(Model model) {
+    public String mostrarFormulario(Model model) {
         model.addAttribute("producto", new Producto());
-        return "producto/crear";
+        return "formulario";
     }
 
-    @PostMapping
-    public String guardarProducto(@ModelAttribute Producto producto) {
-        productoService.crearProducto(producto);
-        return "redirect:productos";
+    @PostMapping("/guardar")
+    public String guardarProducto(Producto producto) {
+        productoService.guardar(producto);
+        return "redirect:/productos";
     }
 
     @GetMapping("/editar/{id}")
-    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+    public String editarProducto(@PathVariable Long id, Model model) {
         Producto producto = productoService.obtenerPorId(id);
-        model.addAttribute("producto", producto);
-        return "editar";
-    }
+        if (producto == null) {
+            return "error";
+        }
 
-    @PostMapping("/actualizar/{id}")
-    public String actualizarProducto(@PathVariable Long id, @ModelAttribute Producto producto) {
-        productoService.editarProducto(id, producto);
-        return "redirect:/producto";
+        model.addAttribute("producto", producto);
+        return "formulario";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarProducto(@PathVariable Long id) {
-        productoService.eliminarProducto(id);
-        return "redirect:/producto";
+        productoService.eliminar(id);
+        return "redirect:/productos";
     }
+
 }

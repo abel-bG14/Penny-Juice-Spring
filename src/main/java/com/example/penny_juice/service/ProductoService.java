@@ -1,43 +1,34 @@
 package com.example.penny_juice.service;
 
-import com.example.penny_juice.model.Producto;
-import com.example.penny_juice.repository.ProductoRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.penny_juice.model.Producto;
+import com.example.penny_juice.repository.ProductoRepository;
 
 @Service
 public class ProductoService {
-
-    private final ProductoRepository productoRepository;
-
     @Autowired
-    public ProductoService(ProductoRepository productoRepository) {
-        this.productoRepository = productoRepository;
-    }
+    private ProductoRepository productoRepository;
 
-    public Producto crearProducto(Producto producto) {
-        return productoRepository.save(producto);
-    }
-
-    public List<Producto> listarProducto() {
+    public List<Producto> listar() {
         return productoRepository.findAll();
     }
 
+    public void guardar(Producto producto) { // es lo mismo que crear
+        productoRepository.save(producto);
+    }
+
     public Producto obtenerPorId(Long id) {
-        return productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No existe un producto con ese id"));
+        Optional<Producto> opt = productoRepository.findById(id);
+        return opt.orElse(null);
     }
 
-    public Producto editarProducto(Long id, Producto producto) {
-        Producto productoExistente = obtenerPorId(id);
-        productoExistente.update(producto);
-        return productoRepository.save(productoExistente);
-    }
-
-    public void eliminarProducto(Long id) {
-        obtenerPorId(id);
+    public void eliminar(Long id) {
         productoRepository.deleteById(id);
     }
+
 }
