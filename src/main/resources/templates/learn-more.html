@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nosotros - Penny Juice</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-..."
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #fff; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1)"
+    >
+      <div class="container-fluid d-flex align-items-center">
+        <a class="navbar-brand" th:href="@{/}">
+          <img
+            src="images/logo.png"
+            alt="LogoPennyJuice"
+            class="img-fluid"
+            style="width: 180px"
+          />
+        </a>
+        <button
+          class="navbar-toggler order-3 order-lg-3 ms-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-lg-end order-4 order-lg-2"
+          id="navbarSupportedContent"
+        >
+          <ul class="navbar-nav mb-2 mb-lg-0 fs-3">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/us}">Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Order Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/learn-more}">Learn More</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section
+      class="text-white text-center d-flex align-items-center"
+      style="
+        min-height: 300px;
+        background: linear-gradient(135deg, #96b156, #b54a47);
+      "
+    >
+      <div class="container">
+        <h1 class="display-4 fw-bold">Learn More About Penny Juice</h1>
+        <p class="lead">Natural, delicious, and designed for kids.</p>
+      </div>
+    </section>
+
+    <!-- WHAT IS PENNY JUICE -->
+    <section class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-4 text-center">
+          <img
+            src="images/card7.png"
+            class="img-fluid shadow rounded-3"
+            alt="Kids Drinking Juice"
+          />
+        </div>
+        <div class="col-md-6">
+          <h2 class="text-warning fw-bold">What Is Penny Juice?</h2>
+          <p class="text-muted fs-5">
+            Penny Juice provides high-quality, natural fruit juice concentrates
+            perfect for childcare centers, preschools, and families. Our
+            products are USDA and FDA compliant, made to ensure safety, flavor,
+            and convenience.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="py-5" style="background: #f8f9fa">
+      <div class="container">
+        <h2 class="fw-bold text-center text-warning mb-5">
+          Why Choose Our Juice?
+        </h2>
+
+        <div class="row g-4">
+          <!-- Benefit -->
+          <div class="col-md-4">
+            <div class="p-4 text-center bg-white shadow rounded-3">
+              <i class="bi bi-heart-fill text-danger fs-1 mb-3"></i>
+              <h5 class="fw-bold">100% Natural</h5>
+              <p class="text-muted">
+                Made with real fruit concentrates, no artificial preservatives.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit -->
+          <div class="col-md-4">
+            <div class="p-4 text-center bg-white shadow rounded-3">
+              <i class="bi bi-box-seam fs-1 text-success mb-3"></i>
+              <h5 class="fw-bold">Easy to Store</h5>
+              <p class="text-muted">
+                No refrigeration is needed before or after opening.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit -->
+          <div class="col-md-4">
+            <div class="p-4 text-center bg-white shadow rounded-3">
+              <i class="bi bi-clipboard-check fs-1 text-primary mb-3"></i>
+              <h5 class="fw-bold">USDA & FDA Compliant</h5>
+              <p class="text-muted">
+                Meets all nutritional and safety guidelines.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-warning">How It Works</h2>
+        <p class="text-muted fs-5">
+          Simple, fast, and efficient for everyday use.
+        </p>
+      </div>
+
+      <div class="row text-center">
+        <div class="col-md-4 mb-3">
+          <div class="p-4 shadow rounded-3">
+            <i class="bi bi-tropical-storm fs-1 text-success mb-3"></i>
+            <h5 class="fw-bold">1 Part Concentrate</h5>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div class="p-4 shadow rounded-3">
+            <i class="bi bi-droplet fs-1 text-primary mb-3"></i>
+            <h5 class="fw-bold">7 Parts Water</h5>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div class="p-4 shadow rounded-3">
+            <i class="bi bi-cup-straw fs-1 text-warning mb-3"></i>
+            <h5 class="fw-bold">Ready to Serve!</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAVORS -->
+    <section class="py-5" style="background: #fff7e6">
+      <div class="container">
+        <h2 class="fw-bold text-warning text-center mb-5">Available Flavors</h2>
+
+        <div class="row g-4 text-center">
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Strawberry</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Orange</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Pineapple</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Kiwi</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Blueberry</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Grape</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Fruit Punch</div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 bg-white shadow rounded">Apple</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center py-5" style="background: #96b156">
+      <h2 class="fw-bold text-white mb-3">Ready to Order?</h2>
+      <p class="text-white fs-5 mb-4">
+        Choose your favorite flavors and enjoy natural juice every day.
+      </p>
+      <a href="#" class="btn btn-light btn-lg fw-bold">Order Now</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white text-dark text-center border-top">
+      <div class="container py-5">
+        <div class="text-center mb-4">
+          <img
+            src="images/logo.png"
+            alt="Logo Penny Juice"
+            style="width: 160px"
+          />
+          <p class="text-muted mb-0">
+            Natural flavor that fills you with energy
+          </p>
+        </div>
+        <div class="row justify-content-center">
+          <div
+            class="col-12 col-md-4 d-flex flex-column align-items-center mb-4"
+          >
+            <h6 class="fw-bold text-uppercase mb-3">Follow Us</h6>
+            <div>
+              <a
+                href="https://www.facebook.com/PENNYJUICE/"
+                class="text-dark mx-2 fs-4"
+              >
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/pennyjuice/"
+                class="text-dark mx-2 fs-4"
+              >
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://x.com/1pennyjuice" class="text-dark mx-2 fs-4">
+                <i class="bi bi-twitter"></i>
+              </a>
+            </div>
+          </div>
+          <div
+            class="col-12 col-md-4 d-flex flex-column align-items-center mb-4"
+          >
+            <h6 class="fw-bold text-uppercase mb-3">Us</h6>
+            <ul class="list-unstyled mb-0 text-center">
+              <li>
+                <a th:href="@{/us}" class="text-decoration-none text-secondary"
+                  >Who are we?</a
+                >
+              </li>
+              <li>
+                <a th:href="@{/us}" class="text-decoration-none text-secondary"
+                  >Mission</a
+                >
+              </li>
+              <li>
+                <a th:href="@{/us}" class="text-decoration-none text-secondary"
+                  >Vision</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div
+            class="col-12 col-md-4 d-flex flex-column align-items-center mb-4"
+          >
+            <h6 class="fw-bold text-uppercase mb-3">Location</h6>
+            <p class="text-muted mb-0">915 40th Ave, Bettendorf, IA</p>
+            <p class="text-muted mb-0">Iowa, USA</p>
+          </div>
+        </div>
+        <hr
+          class="my-3"
+          style="opacity: 0.15; width: 80%; margin: 1.5rem auto"
+        />
+        <p class="mb-0 text-muted text-center">
+          &copy; 2025 Penny Juice. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-..."
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

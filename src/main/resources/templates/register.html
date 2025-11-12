@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/EstilosRegister.css}" />
+  </head>
+  <body>
+    <div class="register-card">
+      <h3>Register</h3>
+      <form action="/register" method="POST">
+        <div class="mb-3">
+          <label for="nombres" class="form-label">Names</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombres"
+            name="nombres"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="apellidos" class="form-label">Surnames</label>
+          <input
+            type="text"
+            class="form-control"
+            id="apellidos"
+            name="apellidos"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="fechaNacimiento" class="form-label">Birthdate</label>
+          <input
+            type="date"
+            class="form-control"
+            id="fechaNacimiento"
+            name="fechaNacimiento"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Phone</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="telefono"
+            name="telefono"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="correo" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="correo"
+            name="correo"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="contrasena" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="contrasena"
+            name="contrasena"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-register w-100">Register</button>
+      </form>
+      <div class="text-center mt-3">
+        Do you already have an account?
+        <a th:href="@{/login}" class="login-link" style="color: #f37055"
+          >Login</a
+        >
+      </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>

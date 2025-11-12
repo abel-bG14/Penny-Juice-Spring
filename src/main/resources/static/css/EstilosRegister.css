@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
+  padding: 1rem;
+}
+.register-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+.register-card h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #f37055;
+}
+.btn-register {
+  background-color: #f37055;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.btn-register:hover {
+  background-color: #d9583c;
+}
+.login-link {
+  color: #0072ff;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
