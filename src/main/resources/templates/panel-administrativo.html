@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel Administrativo</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/EstilosPanelAdministrativo.css}"
+    />
+
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg bg-warning navbar-light shadow-sm">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#menuLateral"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand mx-auto" th:href="@{/panel}">
+          <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+        </a>
+
+        <button
+          class="btn btn-sm btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#modalLogout"
+        >
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </div>
+    </nav>
+
+    <aside class="sidebar d-none d-lg-flex flex-column">
+      <div class="text-center mb-4">
+        <img
+          th:src="@{/images/logo.jpeg}"
+          alt="Logo"
+          height="55"
+          class="rounded"
+        />
+      </div>
+
+      <ul class="nav nav-pills flex-column px-3">
+        <li class="nav-item mb-2">
+          <a class="nav-link active" href="#">
+            <i class="bi bi-speedometer2 me-2"></i>Administrative Panel
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="#">
+            <i class="bi bi-people me-2"></i>Users
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" th:href="@{/productos}">
+            <i class="bi bi-box-seam me-2"></i>Products
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="#">
+            <i class="bi bi-cart4 me-2"></i>Sales
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-auto px-3 pb-4">
+        <button
+          class="btn btn-danger w-100"
+          data-bs-toggle="modal"
+          data-bs-target="#modalLogout"
+        >
+          <i class="bi bi-box-arrow-right"></i> Log Out
+        </button>
+      </div>
+    </aside>
+
+    <div
+      class="offcanvas offcanvas-start d-lg-none"
+      tabindex="-1"
+      id="menuLateral"
+      style="width: 260px"
+    >
+      <div class="offcanvas-header bg-warning text-dark">
+        <h5 class="offcanvas-title">
+          <img
+            src="/src/main/resources/static/images/logo.jpeg"
+            alt="Logo"
+            height="40"
+            class="rounded"
+          />
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item mb-2">
+            <a class="nav-link active" href="#">
+              <i class="bi bi-speedometer2 me-2"></i>Administrative Panel
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="#">
+              <i class="bi bi-people me-2"></i>Users
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="#">
+              <i class="bi bi-box-seam me-2"></i>Products
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="#">
+              <i class="bi bi-cart4 me-2"></i>Sales
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <main class="container my-4">
+      <h2 class="fw-bold mb-4 text-dark">System Modules</h2>
+
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+          <div class="card h-100 card-module">
+            <div class="card-body text-center">
+              <i
+                class="bi bi-people-fill text-primary"
+                style="font-size: 3rem"
+              ></i>
+              <h5 class="card-title mt-3">User Management</h5>
+              <p class="small text-muted">User Editing.</p>
+              <a href="#" class="btn btn-primary stretched-link">Go</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+          <div class="card h-100 card-module">
+            <div class="card-body text-center">
+              <i
+                class="bi bi-box-seam-fill text-success"
+                style="font-size: 3rem"
+              ></i>
+              <h5 class="card-title mt-3">Product Management</h5>
+              <p class="small text-muted">Stock, categories and prices.</p>
+              <a th:href="@{/productos}" class="btn btn-success stretched-link">Go</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+          <div class="card h-100 card-module">
+            <div class="card-body text-center">
+              <i
+                class="bi bi-cart-check-fill text-warning"
+                style="font-size: 3rem"
+              ></i>
+              <h5 class="card-title mt-3">Sales Management</h5>
+              <p class="small text-muted">Invoicing and reporting.</p>
+              <a
+                href="#"
+                class="btn btn-warning stretched-link text-dark fw-bold"
+              >
+                Go
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal fade" id="modalLogout" tabindex="-1">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h6 class="modal-title">Log Out?</h6>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a th:href="@{/index}" class="btn btn-danger btn-sm">Go out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

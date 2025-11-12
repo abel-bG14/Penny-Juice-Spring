@@ -12,61 +12,31 @@
     <!-- BARRA DE NAVEGACIÓN -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);">
         <div class="container-fluid d-flex align-items-center">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" th:href="@{/}">
                 <img src="images/logo.png" alt="LogoPennyJuice" class="img-fluid" style="width: 180px;">
             </a>
-            <button type="button" class="btn btn-link p-0 order-2 order-lg-4" data-bs-toggle="modal" data-bs-target="#loginModal" aria-label="Abrir formulario de inicio de sesión">
+            <a th:href="@{/login}" class="btn btn-link p-0 order-2 order-lg-4" aria-label="Ir a login">
                 <img src="images/login.png" alt="Login" height="38">
                 <span class="visually-hidden">Login</span>
-            </button>
+            </a>
             <button class="navbar-toggler order-3 order-lg-3 ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-lg-end order-4 order-lg-2" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 fs-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="us.html">Us</a>
+                        <a class="nav-link" th:href="@{/us}">Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Order Now</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="learn-more.html">Learn More</a>
+                        <a class="nav-link" th:href="@{/learn-more}">Learn More</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- INICIO DE SESIÓN MODAL -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="loginLabel">Login</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="login-email" class="col-form-label">Email</label>
-                            <input type="email" class="form-control" id="login-email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="login-password" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" id="login-password" required>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <a href="#" class="text-primary small">Don't have an account? Sign up</a>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" form="loginForm" href="lista.html">Login</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- CARRUSEL -->
     <div id="bannerCarousel" class="carousel slide my-3" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -222,7 +192,7 @@
                 <h2 class="fw-bold text-warning">Healthy Juice Concentrates for All Kids to Enjoy</h2>
                 <p class="text-muted">We provide a variety of flavors that all kids can enjoy! All the juice concentrates that we sell are compliant with the USDA and FDA guidelines. You don't need to refrigerate the concentrates before or after opening them.</p>
                 <div class="text-center my-3">
-                    <a href="learn-more.html" class="btn btn-success">Learn More</a>
+                    <a th:href="@{/learn-more}" class="btn btn-success">Learn More</a>
                 </div>
             </div>
         </div>
@@ -233,7 +203,7 @@
                 <h2 class="fw-bold text-warning">Penny Juice Products Comply With All Requirements for CACFP, Subsidy, and Nutrition Set Forth by the FDA</h2>
                 <p class="text-muted">If you're running a childcare center and want to serve healthy beverages to kids every day, order quality juice concentrates from Penny Juice of America. Our system is fast and easy to use. Penny Juice greatly reduces storage and handling requirements. 1 gallon pre-measured mix pitchers available to assure cost control and flavor consistency.</p>
                 <div class="text-center my-3">
-                    <a href="#" class="btn btn-success">Order Now</a>
+                    <a th:href="@{#}" class="btn btn-success">Order Now</a>
                 </div>
             </div>
             <div class="col-md-6 text-center order-1 order-md-2">
@@ -250,7 +220,7 @@
                     <p class="text-muted mb-4 text-center" style="font-size: 1.1rem;">Enjoy the best fruit flavors made with 100% natural ingredients. Healthy, refreshing, and perfect for any moment of the day.</p>
                     <p class="text-muted mb-4 text-center" style="font-size: 1.05rem;">Discover a world of delicious and nutritious juices, crafted to delight your senses and boost your well-being. Whether you crave something sweet, tangy, or exotic, our juices are the perfect companion for breakfast, lunch, or a midday snack. Try them all and experience the true taste of nature in every sip!</p>
                     <div class="text-center my-3">
-                        <a href="#" class="btn btn-success btn-lg">Order Now</a>
+                        <a th:href="@{#}" class="btn btn-success btn-lg">Order Now</a>
                     </div>
                 </div>
                 <div class="juice-video-box d-flex align-items-center justify-content-center p-3 flex-grow-1" style="background: transparent; border-radius: 0;">
@@ -287,13 +257,13 @@
                     <h6 class="fw-bold text-uppercase mb-3">Us</h6>
                     <ul class="list-unstyled mb-0 text-center">
                         <li>
-                            <a href="us.html" class="text-decoration-none text-secondary">Who are we?</a>
+                            <a th:href="@{/us}" class="text-decoration-none text-secondary">Who are we?</a>
                         </li>
                         <li>
-                            <a href="learn-more.html" class="text-decoration-none text-secondary">Mission</a>
+                            <a th:href="@{/us}" class="text-decoration-none text-secondary">Mission</a>
                         </li>
                         <li>
-                            <a href="learn-more.html" class="text-decoration-none text-secondary">Vision</a>
+                            <a th:href="@{/us}" class="text-decoration-none text-secondary">Vision</a>
                         </li>
                     </ul>
                 </div>
