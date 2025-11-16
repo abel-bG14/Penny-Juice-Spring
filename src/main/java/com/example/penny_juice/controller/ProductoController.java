@@ -20,7 +20,6 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping
-
     public String listarProductos(Model model) {
         model.addAttribute("listaProductos", productoService.listar());
         return "lista";

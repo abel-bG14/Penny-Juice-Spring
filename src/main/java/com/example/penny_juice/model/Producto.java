@@ -1,23 +1,41 @@
 package com.example.penny_juice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "productos")
 public class Producto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
     private Long id;
+
+    @Column(name = "nombre_producto")
     private String nombre;
-    private String categoria;
+
+    @Column(name = "id_categoria")
+    private Integer categoria;
+
+    @Column(name = "descripcion")
     private String descripcion;
+
+    @Column(name = "precio")
     private Double precio;
+
+    @Column(name = "imagenurl")
     private String imagenURL;
+
+    @Column(name = "stock")
     private Integer stock;
 
-    // Getters y Setters
+    // ======= Getters y Setters =======
+
     public Long getId() {
         return id;
     }
@@ -34,11 +52,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getCategoria() {
+    public Integer getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Integer categoria) {
         this.categoria = categoria;
     }
 
@@ -73,5 +91,4 @@ public class Producto {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-
 }
