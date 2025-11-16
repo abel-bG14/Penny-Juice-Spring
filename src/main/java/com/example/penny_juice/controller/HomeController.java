@@ -11,51 +11,6 @@ import com.example.penny_juice.service.ProductoService;
 
 @Controller
 public class HomeController {
-
-    private final ProductoService productoService;
-
-    // Inyección por constructor
-    public HomeController(ProductoService productoService) {
-        this.productoService = productoService;
-    }
-
-    @GetMapping({ "/", "/index" })
-    public String index() {
-        return "index";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/galeria")
-    public String galeria(Model model) {
-        model.addAttribute("listaProductos", productoService.listar());
-        return "galeria";
-    }
-
-    @GetMapping("/carrito")
-    public String carrito() {
-        return "carrito";
-    }
-
-    @GetMapping("/galeria/{id}")
-    public String detalleProducto(@PathVariable Long id, Model model) {
-        Producto producto = productoService.obtenerPorId(id); // devuelve Producto o null
-        if (producto == null) {
-            return "redirect:/galeria"; // o una página de error personalizada
-        }
-        model.addAttribute("producto", producto);
-        return "detalle-producto"; // nombre del HTML Thymeleaf
-    }
-
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
     @GetMapping("/panel")
     public String panelAdministrativo() {
         return "panel-administrativo";
