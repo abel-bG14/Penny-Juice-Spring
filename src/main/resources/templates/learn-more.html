@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,6 +32,13 @@
             style="width: 180px"
           />
         </a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-link p-0 order-2 order-lg-4 ms-2" aria-label="Ir a login">
+          <img src="images/login.png" alt="Login" height="38" />
+        </a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-inline order-2 order-lg-4 ms-2" style="margin:0;">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <button type="submit" class="btn btn-link p-0" aria-label="Cerrar sesión">Cerrar sesión</button>
+        </form>
         <button
           class="navbar-toggler order-3 order-lg-3 ms-2"
           type="button"
