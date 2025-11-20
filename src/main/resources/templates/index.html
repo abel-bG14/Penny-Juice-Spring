@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -19,13 +19,13 @@
                 <img src="images/logo.png" alt="LogoPennyJuice" class="img-fluid" style="width: 180px;">
             </a>
             <!-- Mostrar login si no hay usuario autenticado -->
-            <a th:if="${#request.remoteUser == null}" th:href="@{/login}" class="btn btn-link p-0 order-2 order-lg-4"
+            <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-link p-0 order-2 order-lg-4"
                 aria-label="Ir a login">
                 <img src="images/login.png" alt="Login" height="38">
                 <span class="visually-hidden">Login</span>
             </a>
             <!-- Mostrar botón de logout si el usuario está autenticado -->
-            <form th:if="${#request.remoteUser != null}" th:action="@{/logout}" method="post"
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post"
                 class="d-inline order-2 order-lg-4" style="margin:0;">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <button type="submit" class="btn btn-link p-0" aria-label="Cerrar sesión">
