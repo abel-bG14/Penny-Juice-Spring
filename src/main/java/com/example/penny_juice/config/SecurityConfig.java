@@ -39,7 +39,8 @@ public class SecurityConfig {
                 // permitir recursos estáticos y páginas públicas
                 .requestMatchers(
                     "/", "/index", "/login", "/register", "/guardar",
-                    "/css/**", "/js/**", "/images/**", "/videos/**", "/webjars/**", "/favicon.ico"
+                    "/css/**", "/js/**", "/images/**", "/videos/**", "/webjars/**", "/favicon.ico",
+                    "/us", "/learn-more"
                 ).permitAll()
                 // panel administrativo sólo para ADMIN
                 .requestMatchers("/panel", "/panel/**").hasRole("ADMIN")
