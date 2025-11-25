@@ -88,4 +88,36 @@ public class Usuario {
     public void setTelefono(String telefono) { this.telefono = telefono; }
     public void setCorreo(String correo) { this.correo = correo; }
     public void setPassword(String password) { this.password = password; }
+
+    public void editUsuario(Usuario u) {
+
+        if (u.getNombre() != null) {
+            this.nombre = u.getNombre();
+        }
+    
+        if (u.getApellidos() != null) {
+            this.apellidos = u.getApellidos();
+        }
+    
+        if (u.getFechaNacimiento() != null) {
+            this.fechaNacimiento = u.getFechaNacimiento();
+        }
+    
+        if (u.getTelefono() != null) {
+            this.telefono = u.getTelefono();
+        }
+    
+        if (u.getCorreo() != null) {
+            this.correo = u.getCorreo();
+        }
+    
+        if (u.getPassword() != null) {
+            this.password = u.getPassword();
+        }
+    
+        if (u.getRol() != null) {
+            this.rol = u.getRol();
+        }
+        
+    }
 }
