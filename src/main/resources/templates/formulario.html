@@ -69,14 +69,14 @@
             id="nombre"
           />
         </div>
+<div class="mb-3">
+  <label for="categoria" class="form-label">Categoría:</label>
+  <select class="form-select" th:field="*{categoria}" id="categoria">
+    <option value="1">Jugos</option>
+    <option value="2">Snacks</option>
+  </select>
+</div>
 
-        <div class="mb-3">
-          <label for="categoria" class="form-label">Categoría:</label>
-          <select class="form-select" th:field="*{categoria}" id="categoria">
-            <option value="Jugos">Jugos</option>
-            <option value="Snacks">Snacks</option>
-          </select>
-        </div>
 
         <div class="mb-3">
           <label for="descripcion" class="form-label">Descripción:</label>
@@ -109,16 +109,17 @@
           />
         </div>
 
-        <div class="mb-3">
-          <label for="imagenURL" class="form-label">Imagen (URL):</label>
-          <input
-            type="text"
-            class="form-control"
-            th:field="*{imagenURL}"
-            id="imagenURL"
-            placeholder="Ejemplo: /images/fresa.png"
-          />
-        </div>
+       <div class="mb-3">
+  <label for="imagenURL" class="form-label">Imagen (URL):</label>
+  <input type="text"
+         class="form-control"
+         id="imagenURL"
+         th:field="*{imagenURL}"
+         placeholder="Ejemplo: https://www.example.com/imagen.jpg" />
+</div>
+
+
+
 
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
@@ -134,3 +135,4 @@
     ></script>
   </body>
 </html>
+

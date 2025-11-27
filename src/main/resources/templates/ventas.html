@@ -8,6 +8,31 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/panel}">
+          <img src="/images/logo.jpeg" alt="Logo" width="180" height="60" />
+        </a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-link p-0 ms-2">
+        <img src="/images/login.png" alt="Login" height="38" />
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/usuarios">Listado de Ventas</a>
+          </li>
+        </ul>
+      </div>
+
+      <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-inline ms-2">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit" class="btn btn-link p-0">Cerrar sesión</button>
+      </form>
+
+      <div class="collapse navbar-collapse" id="navbarNav"></div>
+    </div>
+  </nav>
+    </nav>
 <div class="container my-4">
     <h2 class="mb-4">Listado de Pedidos / Ventas</h2>
 
