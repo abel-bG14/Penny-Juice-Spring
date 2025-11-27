@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito de Compras - Marcus Barber Shop</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="../imag/marcuss.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/order-now.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #fff; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1)"
+    >
+    
+      <div class="container-fluid d-flex align-items-center">
+        <a class="navbar-brand" th:href="@{/}">
+          <img
+            src="images/logo.png"
+            alt="LogoPennyJuice"
+            class="img-fluid"
+            style="width: 180px"
+          />
+        </a>
+        <a
+          sec:authorize="isAnonymous()"
+          th:href="@{/login}"
+          class="btn btn-link p-0 order-2 order-lg-4"
+          aria-label="Ir a login"
+        >
+          <img src="images/login.png" alt="Login" height="38" />
+          <span class="visually-hidden">Login</span>
+        </a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-inline order-2 order-lg-4 ms-2" style="margin:0;">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <button type="submit" class="btn btn-link p-0" aria-label="Cerrar sesión">Cerrar sesión</button>
+        </form>
+        <button
+          class="navbar-toggler order-3 order-lg-3 ms-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-lg-end order-4 order-lg-2"
+          id="navbarSupportedContent"
+        >
+          <ul class="navbar-nav mb-2 mb-lg-0 fs-3">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/us}">Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/order-now}">Order Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/learn-more}">Learn More</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Carrito flotante -->
+    <div id="floating-cart" class="floating-cart hidden">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cart-count" class="cart-count">0</span>
+    </div>
+
+    <div class="main-container">
+      <h1 class="page-title">Tu Carrito de Compras</h1>
+      <p class="page-subtitle">
+        Revisa tus productos antes de finalizar la compra
+      </p>
+
+      <div class="cart-container">
+        <div class="cart-items-section">
+          <h2 class="section-title">
+            <i class="fas fa-shopping-bag"></i>
+            Productos en tu carrito
+          </h2>
+          <div id="cart-items-container">
+            <div class="empty-cart">
+              <i class="fas fa-shopping-cart"></i>
+              <h3>Tu carrito está vacío</h3>
+              <p>Agrega algunos productos increíbles para comenzar</p>
+              <a
+                href="../PRODUCTOS/productos.html"
+                class="continue-shopping-btn"
+              >
+                Continuar Comprando
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-summary">
+          <h2 class="section-title">
+            <i class="fas fa-receipt"></i>
+            Resumen del pedido
+          </h2>
+
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span id="subtotal">S/ 0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Envío:</span>
+            <span id="shipping">Gratis</span>
+          </div>
+          <div class="summary-row">
+            <span>Total:</span>
+            <span id="total">S/ 0.00</span>
+          </div>
+
+          <div class="payment-methods">
+            <h3 style="color: #238823; margin-bottom: 20px; font-size: 1.1rem">
+              Métodos de Pago
+            </h3>
+
+            <div
+              class="payment-method selected"
+              onclick="selectPaymentMethod(this, 'card')"
+            >
+              <input type="radio" name="payment" value="card" checked />
+              <div class="payment-info">
+                <div class="payment-brand">Tarjeta de Crédito/Débito</div>
+                <div class="payment-desc">
+                  Visa, MasterCard, American Express
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="payment-method"
+              onclick="selectPaymentMethod(this, 'digital')"
+            >
+              <input type="radio" name="payment" value="yape" />
+              <div class="payment-info">
+                <div class="payment-brand">Yape</div>
+                <div class="payment-desc">Billetera Digital</div>
+              </div>
+            </div>
+
+            <div
+              class="payment-method"
+              onclick="selectPaymentMethod(this, 'digital')"
+            >
+              <input type="radio" name="payment" value="plin" />
+              <div class="payment-info">
+                <div class="payment-brand">Plin</div>
+                <div class="payment-desc">Billetera Digital</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de Tarjeta -->
+          <div id="card-form" class="card-form">
+            <h4 class="form-title">
+              <i class="fas fa-credit-card"></i> Información de la Tarjeta
+            </h4>
+
+            <div class="form-group">
+              <label for="card-number">Número de Tarjeta</label>
+              <input
+                type="text"
+                id="card-number"
+                placeholder="1234 5678 9012 3456"
+                maxlength="19"
+              />
+              <div class="card-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="card-expiry">Fecha de Vencimiento</label>
+                <input
+                  type="text"
+                  id="card-expiry"
+                  placeholder="MM/AA"
+                  maxlength="5"
+                />
+              </div>
+              <div class="form-group">
+                <label for="card-cvv">CVV</label>
+                <input
+                  type="text"
+                  id="card-cvv"
+                  placeholder="123"
+                  maxlength="4"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="card-name">Nombre del Titular</label>
+              <input
+                type="text"
+                id="card-name"
+                placeholder="Nombre como aparece en la tarjeta"
+                maxlength="50"
+              />
+            </div>
+          </div>
+
+          <!-- QR Codes para Billeteras Digitales -->
+          <div id="qr-section" class="qr-section hidden">
+            <h4 class="form-title">
+              <i class="fas fa-qrcode"></i> Escanea el código QR
+            </h4>
+
+            <div class="qr-container">
+              <div id="yape-qr" class="qr-code hidden">
+                <img src="images/yape.jfif" alt="Código QR Yape" />
+                <p>Escanea con tu app Yape</p>
+              </div>
+
+              <div id="plin-qr" class="qr-code hidden">
+                <img src="images/plin.jfif" alt="Código QR Plin" />
+                <p>Escanea con tu app Plin</p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="checkout-btn"
+            id="checkout-btn"
+            onclick="processPayment()"
+          >
+            <i class="fas fa-lock"></i> Proceder al Pago
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="toast" class="toast hidden">
+      <span id="toast-message"></span>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-white text-dark text-center border-top">
+      <div class="container py-5">
+        <div class="text-center mb-4">
+          <img
+            src="images/logo.png"
+            alt="Logo Penny Juice"
+            style="width: 160px"
+          />
+          <p class="text-muted mb-0">
+            Natural flavor that fills you with energy
+          </p>
+        </div>
+        <div class="row justify-content-center">
+          <div
+            class="col-12 col-md-4 d-flex flex-column align-items-center mb-4"
+          >
+            <h6 class="fw-bold text-uppercase mb-3">Follow Us</h6>
+            <div>
+              <a
+                href="https://www.facebook.com/PENNYJUICE/"
+                class="text-dark mx-2 fs-4"
+              >
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/pennyjuice/"
+                class="text-dark mx-2 fs-4"
+              >
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://x.com/1pennyjuice" class="text-dark mx-2 fs-4">
+                <i class="bi bi-twitter"></i>
+              </a>
+            </div>
+          </div>
+          <div
+            class="col-12 col-md-4 d-flex flex-column align-items-center mb-4"
+          >
+            <h6 class="fw-bold text-uppercase mb-3">Us</h6>
+            <ul class="list-unstyled mb-0 text-center">
+              <li>
+                <a th:href="@{/us}" class="text-decoration-none text-secondary"
+                  >Who are we?</a
+                >
+              </li>
+              <li>
+                <a th:href="@{/us}" class="text-decoration-none text-secondary"
+                  >Mission</a
+                >
+              </li>
+              <li>
+                <a th:href="@{/us}" class="text-decoration-none text-secondary"
+                  >Vision</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div
+            class="col-12 col-md-4 d-flex flex-column align-items-center mb-4"
+          >
+            <h6 class="fw-bold text-uppercase mb-3">Location</h6>
+            <p class="text-muted mb-0">915 40th Ave, Bettendorf, IA</p>
+            <p class="text-muted mb-0">Iowa, USA</p>
+          </div>
+        </div>
+        <hr
+          class="my-3"
+          style="opacity: 0.15; width: 80%; margin: 1.5rem auto"
+        />
+        <p class="mb-0 text-muted text-center">
+          &copy; 2025 Penny Juice. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="../js/pagosJS.js"></script>
+    <script src="../header.js"></script>
+  </body>
+</html>

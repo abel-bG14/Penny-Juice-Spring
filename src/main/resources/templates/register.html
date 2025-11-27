@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/EstilosRegister.css}" />
+</head>
+
+<body>
+  <div class="register-card">
+    <h3>Register</h3>
+    <form th:action="@{/guardar}" th:object="${usuario}" method="POST">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <div class="mb-3">
+        <label for="nombres" class="form-label">Names</label>
+        <input type="text" class="form-control" id="nombres" th:field="*{nombre}" required />
+      </div>
+      <div class="mb-3">
+        <label for="apellidos" class="form-label">Surnames</label>
+        <input type="text" class="form-control" id="apellidos" th:field="*{apellidos}" required />
+      </div>
+      <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label">Birthdate</label>
+        <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}" required />
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Phone</label>
+        <input type="tel" class="form-control" id="telefono" th:field="*{telefono}" required />
+      </div>
+      <div class="mb-3">
+        <label for="correo" class="form-label">Email</label>
+        <input type="email" class="form-control" id="correo" th:field="*{correo}" required />
+      </div>
+      <div class="mb-3">
+        <label for="contrasena" class="form-label">Password</label>
+        <input type="password" class="form-control" id="contrasena" th:field="*{password}" required />
+      </div>
+      <div class="mb-3">
+        <label for="rol" class="form-label">Rol</label>
+        <select class="form-select" id="rol" th:field="*{rol}">
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+        <div class="form-text">Selecciona el rol para este usuario. Sólo asigna ADMIN si corresponde.</div>
+      </div>
+      <button type="submit" class="btn btn-register w-100">Register</button>
+    </form>
+    <div class="text-center mt-3">
+      Do you already have an account?
+      <a th:href="@{/login}" class="login-link" style="color: #f37055">Login</a>
+    </div>
+  </div>
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
