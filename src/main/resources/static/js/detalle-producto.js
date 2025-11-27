@@ -64,7 +64,7 @@ class FloatingCart {
 
     // Click en carrito flotante
     this.floatingCart.addEventListener("click", () => {
-      window.location.href = "../PAGOS/pagos.html";
+      window.location.href = "/carrito";
     });
   }
 
@@ -114,7 +114,7 @@ class FloatingCart {
       this.cart[product.id] = { ...product, quantity };
     }
 
-    localStorage.setItem("barbershop_cart", JSON.stringify(this.cart));
+    localStorage.setItem("pennyjuice_cart", JSON.stringify(this.cart));
     this.updateCartDisplay();
     this.showAddedNotification(product.name);
   }

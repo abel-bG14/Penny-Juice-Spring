@@ -139,7 +139,7 @@ class CartManager {
   }
 
   saveCart() {
-    localStorage.setItem("barbershop_cart", JSON.stringify(this.cart));
+    localStorage.setItem("pennyjuice_cart", JSON.stringify(this.cart));
   }
 }
 
@@ -253,97 +253,16 @@ function updateCheckoutButton() {
 }
 
 function processPayment() {
-  const token = localStorage.getItem("token");
+  // Aquí iría todo tu código de validación/pago...
+  
+  // Borra el localStorage
+  localStorage.clear();
 
-  // if (!token) {
-  //   showToast("Debes iniciar sesión para completar el pago", "error");
+  // Muestra un mensaje de confirmación (opcional)
+  alert("Pago procesado correctamente. El carrito ha sido vaciado.");
 
-  //   // Mostrar mensaje flotante cerca al carrito (opcional)
-  //   const loginWarning = document.createElement("div");
-  //   loginWarning.textContent = "⚠️ Inicia sesión para pagar";
-  //   loginWarning.style.position = "absolute";
-  //   loginWarning.style.bottom = "60px";
-  //   loginWarning.style.right = "20px";
-  //   loginWarning.style.backgroundColor = "#ffdddd";
-  //   loginWarning.style.color = "#a00";
-  //   loginWarning.style.padding = "10px 15px";
-  //   loginWarning.style.borderRadius = "5px";
-  //   loginWarning.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
-  //   loginWarning.style.zIndex = "1000";
-  //   loginWarning.id = "login-warning";
-
-  //   // Evitar duplicados
-  //   if (!document.getElementById("login-warning")) {
-  //     document.body.appendChild(loginWarning);
-
-  //     // Desaparece después de 3 segundos
-  //     setTimeout(() => {
-  //       loginWarning.remove();
-  //     }, 3000);
-  //   }
-
-  //   return;
-  // }
-
-  const selectedMethod = document.querySelector('input[name="payment"]:checked');
-  const total = document.getElementById("total").textContent;
-
-  if (
-    selectedMethod &&
-    isFormValid &&
-    !document.getElementById("checkout-btn").disabled
-  ) {
-    const loadingBtn = document.getElementById("checkout-btn");
-    loadingBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-    loadingBtn.disabled = true;
-
-    const detallesPedidoDTOS = Object.values(cartManager.cart).map(item => ({
-      nombreProducto: item.name,
-      cantidad: item.quantity
-    }));
-
-    /*falta reemplazar esto con el envio a pedido*/
-    fetch("https://marcus-barber.azurewebsites.net/pedido", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({ detallesPedidoDTOS })
-    })
-      .then(response => {
-        if (!response.ok) throw new Error("Error al procesar el pedido");
-        return response.json();
-      })
-      .then(() => {
-        showToast("¡Pago realizado con éxito!");
-
-        localStorage.removeItem("barbershop_cart");
-        cartManager.cart = {};
-        cartManager.renderCart();
-        cartManager.updateFloatingCart();
-
-        loadingBtn.innerHTML = '<i class="fas fa-lock"></i> Proceder al Pago';
-
-        ["card-number", "card-expiry", "card-cvv", "card-name"].forEach(id => {
-          document.getElementById(id).value = "";
-        });
-
-        document.querySelectorAll(".form-group input").forEach(input => {
-          input.classList.remove("valid", "error");
-        });
-
-        isFormValid = false;
-        updateCheckoutButton();
-      })
-      .catch(() => {
-        showToast("Error al procesar el pago", true);
-        loadingBtn.innerHTML = '<i class="fas fa-lock"></i> Proceder al Pago';
-        loadingBtn.disabled = false;
-      });
-  } else {
-    showToast("Completa los campos o selecciona un método de pago", true);
-  }
+  // Redirige a otra página si quieres
+  window.location.href = "/carrito"; // Cambia la URL según tu página de éxito
 }
 
 

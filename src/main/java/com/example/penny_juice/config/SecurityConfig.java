@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/", "/index", "/login", "/register", "/guardar",
                     "/css/**", "/js/**", "/images/**", "/videos/**", "/webjars/**", "/favicon.ico",
-                    "/us", "/learn-more"
+                    "/us", "/learn-more", "/galeria"
                 ).permitAll()
                 // panel administrativo sólo para ADMIN
                 .requestMatchers("/panel", "/panel/**").hasRole("ADMIN")

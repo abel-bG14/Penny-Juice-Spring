@@ -115,7 +115,7 @@
             <div
               class="product"
               th:each="p : ${listaProductos}"
-              th:attr="data-category=${p.categoria}"
+              th:attr="data-category=${{1:'jugo', 2:'snack'}[p.categoria]}"
             >
               <a
                 th:href="@{'/galeria/' + ${p.id}}"
