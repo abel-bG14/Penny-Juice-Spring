@@ -43,7 +43,6 @@ public class PedidoService {
     
         Pedido pedido = Pedido.builder()
                 .estado("pendiente")
-                .direccionEnvio(dto.DireccionEnvio())
                 .idUsuario(usuarioRepository.findById(dto.IdUsuario())
                         .orElseThrow(() -> new RuntimeException("No existe un usuario con ese id")))
                 .fechaPedido(new Date())
@@ -82,6 +81,44 @@ public class PedidoService {
         pedidoRepository.save(pedido);
     
         return new PedidoDTO(pedido, detalles);
+    }
+
+    public Pedido obtenerPorId(Long id) {
+        return pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+    }
+
+    public java.util.List<DetallePedido> obtenerDetallesPorPedidoId(Long idPedido) {
+        java.util.List<DetallePedido> result = new java.util.ArrayList<>();
+        for (DetallePedido d : detallePedidoRepository.findAll()) {
+            if (d.getIdPedido() != null && d.getIdPedido().getIdPedido() != null && d.getIdPedido().getIdPedido().equals(idPedido)) {
+                result.add(d);
+            }
+        }
+        return result;
+    }
+
+    public void eliminarPedido(Long idPedido) {
+        Pedido pedido = obtenerPorId(idPedido);
+
+        // Restaurar stock y borrar detalles asociados
+        java.util.List<DetallePedido> detalles = obtenerDetallesPorPedidoId(idPedido);
+        for (DetallePedido d : detalles) {
+            Producto p = d.getIdProducto();
+            if (p != null) {
+                Integer current = p.getStock() == null ? 0 : p.getStock();
+                p.setStock(current + (d.getCantidad() == null ? 0 : d.getCantidad()));
+                productoRepository.save(p);
+            }
+            detallePedidoRepository.delete(d);
+        }
+
+        pedidoRepository.delete(pedido);
+    }
+
+    public void actualizarEstado(Long idPedido, String nuevoEstado) {
+        Pedido pedido = obtenerPorId(idPedido);
+        pedido.setEstado(nuevoEstado);
+        pedidoRepository.save(pedido);
     }
 
 }

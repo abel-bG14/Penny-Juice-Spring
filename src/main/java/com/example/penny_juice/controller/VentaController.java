@@ -7,8 +7,12 @@ import com.example.penny_juice.repository.UsuarioRepository;
 import com.example.penny_juice.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import org.slf4j.Logger;
@@ -50,4 +54,39 @@ public class VentaController {
         model.addAttribute("total", resultado.total());
         return "payment-success";
     }
+
+    @GetMapping
+    public String listarPedidos(Model model){
+        model.addAttribute("pedidos", pedidoService.listarTodasEntidades());
+        return "ListaPedidos";
+    }
+
+    @GetMapping("/detalle/{id}")
+    public String detallePedido(@PathVariable("id") Long id, Model model){
+        var pedido = pedidoService.obtenerPorId(id);
+        var detalles = pedidoService.obtenerDetallesPorPedidoId(id);
+        model.addAttribute("pedido", pedido);
+        model.addAttribute("detalles", detalles);
+        return "detalle-pedido";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarPedido(@PathVariable("id") Long id){
+        pedidoService.eliminarPedido(id);
+        return "redirect:/venta";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarForm(@PathVariable("id") Long id, Model model){
+        var pedido = pedidoService.obtenerPorId(id);
+        model.addAttribute("pedido", pedido);
+        return "editar-pedido";
+    }
+
+    @PostMapping("/editar")
+    public String editarSubmit(@RequestParam("id") Long id, @RequestParam("estado") String estado){
+        pedidoService.actualizarEstado(id, estado);
+        return "redirect:/venta";
+    }
+
 }

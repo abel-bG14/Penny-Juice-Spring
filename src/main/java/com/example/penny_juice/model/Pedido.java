@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -30,9 +29,6 @@ public class Pedido {
 
     @Column(name = "Total", nullable = false)
     private Double total;
-
-    @Column(name = "DireccionEnvio")
-    private String direccionEnvio;
 
     @Column(name = "FechaPedido")
     private Date fechaPedido;

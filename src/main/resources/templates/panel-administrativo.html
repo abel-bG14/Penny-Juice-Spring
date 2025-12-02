@@ -73,7 +73,7 @@
           </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link" href="#">
+          <a class="nav-link" th:href="@{/venta}">
             <i class="bi bi-cart4 me-2"></i>Sales
           </a>
         </li>
@@ -127,13 +127,13 @@
           </li>
 
           <li class="nav-item mb-2">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="@{/productos}">
               <i class="bi bi-box-seam me-2"></i>Products
             </a>
           </li>
 
           <li class="nav-item mb-2">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="@{/venta}">
               <i class="bi bi-cart4 me-2"></i>Sales
             </a>
           </li>
@@ -182,7 +182,7 @@
               ></i>
               <h5 class="card-title mt-3">Sales Management</h5>
               <p class="small text-muted">Invoicing and reporting.</p>
-              <a th:href="@{/ventas}" class="btn btn-warning stretched-link text-dark fw-bold">Go</a>
+              <a th:href="@{/venta}" class="btn btn-warning stretched-link text-dark fw-bold">Go</a>
             </div>
           </div>
         </div>
