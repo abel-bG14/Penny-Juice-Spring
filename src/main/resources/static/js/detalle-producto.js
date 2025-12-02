@@ -70,22 +70,41 @@ class FloatingCart {
 
   // Función genérica para extraer datos del producto actual
   extractProductData() {
-    // Generar ID único basado en el título del producto
-    const productTitle = document.querySelector(".product-title").textContent.trim();
-    const productId = this.generateProductId(productTitle);
-    
+    // Try to read numeric product id from DOM (set by Thymeleaf). Fallback to slug.
+    const container = document.querySelector(".product-container");
+    let productId = null;
+    if (container && container.dataset && container.dataset.productId) {
+      // data-product-id may be a number (string) coming from Thymeleaf
+      productId = Number(container.dataset.productId);
+      if (Number.isNaN(productId)) {
+        productId = null;
+      }
+    }
+
+    // Generar ID único basado en el título del producto si no hay id numérico
+    const productTitle = document
+      .querySelector(".product-title")
+      .textContent.trim();
+    if (productId == null) {
+      productId = this.generateProductId(productTitle);
+    }
+
     // Extraer precio (remover "S/ " y convertir a número)
-    const priceText = document.querySelector(".product-price").textContent.trim();
-    const price = parseFloat(priceText.replace("S/", "").replace(",", "").trim());
-    
+    const priceText = document
+      .querySelector(".product-price")
+      .textContent.trim();
+    const price = parseFloat(
+      priceText.replace("S/", "").replace(",", "").trim()
+    );
+
     // Extraer imagen principal
     const image = document.querySelector("#mainImage").src;
-    
+
     return {
       id: productId,
       name: productTitle,
       price: price,
-      image: image
+      image: image,
     };
   }
 
@@ -93,8 +112,8 @@ class FloatingCart {
   generateProductId(title) {
     return title
       .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '') // Remover caracteres especiales
-      .replace(/\s+/g, '-') // Reemplazar espacios con guiones
+      .replace(/[^a-z0-9\s]/g, "") // Remover caracteres especiales
+      .replace(/\s+/g, "-") // Reemplazar espacios con guiones
       .substring(0, 50); // Limitar longitud
   }
 
@@ -108,10 +127,38 @@ class FloatingCart {
       return;
     }
 
-    if (this.cart[product.id]) {
-      this.cart[product.id].quantity += quantity;
+    // If the product has a numeric id, try to migrate any existing slug-keyed entry
+    // (created before we started storing numeric ids) to the numeric id key.
+    let keyToUse = String(product.id);
+    const numericId = Number(product.id);
+    if (!Number.isNaN(numericId) && Number.isFinite(numericId)) {
+      keyToUse = String(numericId);
+      // find an existing key that corresponds to this product (by name or by generated slug)
+      const generatedSlug = this.generateProductId(product.name);
+      const existingKey = Object.keys(this.cart).find(
+        (k) =>
+          this.cart[k].name === product.name ||
+          k === generatedSlug ||
+          k === String(product.id)
+      );
+      if (existingKey && existingKey !== keyToUse) {
+        // merge quantities into numeric key
+        const existingQty = this.cart[existingKey].quantity || 0;
+        const newQty = existingQty + quantity;
+        // remove old key and set numeric key
+        delete this.cart[existingKey];
+        this.cart[keyToUse] = { ...product, quantity: newQty };
+        localStorage.setItem("pennyjuice_cart", JSON.stringify(this.cart));
+        this.updateCartDisplay();
+        this.showAddedNotification(product.name);
+        return;
+      }
+    }
+
+    if (this.cart[keyToUse]) {
+      this.cart[keyToUse].quantity += quantity;
     } else {
-      this.cart[product.id] = { ...product, quantity };
+      this.cart[keyToUse] = { ...product, quantity };
     }
 
     localStorage.setItem("pennyjuice_cart", JSON.stringify(this.cart));
@@ -136,10 +183,10 @@ class FloatingCart {
   showAddedNotification(productName) {
     // Animación del carrito
     this.floatingCart.style.animation = "bounce 0.6s ease";
-    
+
     // Mostrar notificación
     alert(`✅ "${productName}" agregado al carrito`);
-    
+
     setTimeout(() => {
       this.floatingCart.style.animation = "";
     }, 600);

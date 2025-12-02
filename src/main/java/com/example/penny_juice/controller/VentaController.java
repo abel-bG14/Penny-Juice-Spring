@@ -1,33 +1,53 @@
 package com.example.penny_juice.controller;
 
-import com.example.penny_juice.dto.VentaView;
+import com.example.penny_juice.dto.PedidoCreateDTO;
+import com.example.penny_juice.dto.PedidoDTO;
+import com.example.penny_juice.model.Usuario;
+import com.example.penny_juice.repository.UsuarioRepository;
 import com.example.penny_juice.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import java.security.Principal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
-@RequestMapping
+@RequestMapping("/venta")
 public class VentaController {
+
+    private static final Logger logger = LoggerFactory.getLogger(VentaController.class);
 
     @Autowired
     private PedidoService pedidoService;
 
-    @GetMapping("/ventas")
-    public String verVentas(Model model){
-        List<VentaView> ventas = pedidoService.listarTodas();
-        model.addAttribute("ventas", ventas);
-        return "ventas";
-    }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-    @GetMapping("/api/ventas")
-    @ResponseBody
-    public List<VentaView> apiListarVentas(){
-        return pedidoService.listarTodas();
+    @PostMapping
+    public String crearPedido(PedidoCreateDTO pedidoCreateDTO, org.springframework.ui.Model model, Principal principal) {
+        logger.info("crearPedido invoked - principal={}, dto.IdUsuario={}", principal == null ? null : principal.getName(), pedidoCreateDTO == null ? null : pedidoCreateDTO.IdUsuario());
+
+        PedidoCreateDTO dtoToUse = pedidoCreateDTO;
+
+        // If the form did not send IdUsuario, try to obtain it from the authenticated principal
+        if (dtoToUse == null || dtoToUse.IdUsuario() == null) {
+            if (principal == null) {
+                // Not authenticated: redirect to login
+                return "redirect:/login";
+            }
+            String correo = principal.getName();
+            Usuario usuario = usuarioRepository.findByCorreo(correo).orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"));
+            dtoToUse = new PedidoCreateDTO(usuario.getId(), dtoToUse == null ? null : dtoToUse.DireccionEnvio(), dtoToUse == null ? null : dtoToUse.detalles());
+        }
+
+        logger.info("crearPedido - creating pedido for userId={} detallesCount={}", dtoToUse.IdUsuario(), dtoToUse.detalles() == null ? 0 : dtoToUse.detalles().size());
+
+        PedidoDTO resultado = pedidoService.crearPedido(dtoToUse);
+        model.addAttribute("orderId", resultado.idPedido());
+        model.addAttribute("total", resultado.total());
+        return "payment-success";
     }
 }

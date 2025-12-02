@@ -4,6 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.security.Principal;
+
+import com.example.penny_juice.model.Usuario;
+import com.example.penny_juice.repository.UsuarioRepository;
 
 import com.example.penny_juice.model.Producto;
 import com.example.penny_juice.service.ProductoService;
@@ -13,10 +17,12 @@ import com.example.penny_juice.service.ProductoService;
 public class HomeController {
     
     private final ProductoService productoService;
+    private final UsuarioRepository usuarioRepository;
 
     // Inyección por constructor
-    public HomeController(ProductoService productoService) {
+    public HomeController(ProductoService productoService, UsuarioRepository usuarioRepository) {
         this.productoService = productoService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/galeria")
@@ -26,7 +32,13 @@ public class HomeController {
     }
 
     @GetMapping("/carrito")
-    public String carrito() {
+    public String carrito(Principal principal, Model model) {
+        if (principal != null && principal.getName() != null) {
+            Usuario u = usuarioRepository.findByCorreoIgnoreCase(principal.getName()).orElse(null);
+            if (u != null) {
+                model.addAttribute("currentUserId", u.getId());
+            }
+        }
         return "carrito";
     }
 
