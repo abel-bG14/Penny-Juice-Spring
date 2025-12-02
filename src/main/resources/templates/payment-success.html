@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pago completado - Penny Juice</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h1 class="mb-3">Pago realizado con éxito</h1>
+        <p class="lead">¡Gracias por tu compra! Tu pedido fue procesado correctamente.</p>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <p><strong>Número de pedido:</strong> <span th:text="${orderId}">#123</span></p>
+            <p><strong>Total:</strong> S/ <span th:text="${total}">0.00</span></p>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <a class="btn btn-primary" th:href="@{/}">Volver al inicio</a>
+          <a class="btn btn-outline-secondary" th:href="@{/ventas}">Ver mis pedidos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
